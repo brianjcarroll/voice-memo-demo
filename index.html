@@ -7,29 +7,61 @@
 Hey
   <div id="embedMe"></div>
 
+  <button id="record">Record</button>
+  <button id="stop">Stop</button>
+  <button id="upload">Upload</button>
+
 <script src="//connect.soundcloud.com/sdk.js"></script>
 <script>
-  SC.initialize({
-    client_id: "221f42a93c191d908895f5b619d6b9f0",
-    redirect_uri: "http://brianjcarroll.github.io/voice-memo-demo/callback.html",
-  });
-
-  // initiate auth popup
-  SC.connect(function() {
-    SC.get('/me', function(me) { 
-      console.log(me);
-    });
-
-    SC.get('/me/tracks', function(tracks){
-      console.log(tracks);
-
-      SC.oEmbed(tracks[0].uri, document.getElementById('embedMe'));
-    });
-  });
-
   $(document).ready(function(){
-    alert('ready');
-  });
+    SC.initialize({
+      client_id: "221f42a93c191d908895f5b619d6b9f0",
+      redirect_uri: "http://brianjcarroll.github.io/voice-memo-demo/callback.html",
+    });
+
+    // initiate auth popup
+    SC.connect(function() {
+      var record = $('#record'),
+          stop = $('#stop'),
+          upload = $('#upload');
+
+
+      SC.get('/me', function(me) { 
+        console.log(me);
+      });
+
+      SC.get('/me/tracks', function(tracks){
+        console.log(tracks);
+
+        SC.oEmbed(tracks[0].uri, document.getElementById('embedMe'));
+      });
+
+      record.on('click', function(e){
+        SC.record({
+          start: function(){
+
+          },
+          progress: function(ms, avgPeak){
+
+          }
+        });
+
+      upload.on('click', function(e){
+        SC.recordUpload({
+          track: {title: "Lol it worked"},
+          success: function(res, err){
+            console.log(res, err);
+          }
+        });
+      });
+    });  
+
+
+    });
+
+
+
+    });
 </script>
 </body>
 </html>
