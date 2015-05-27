@@ -12,6 +12,13 @@ Hey
     client_id: "221f42a93c191d908895f5b619d6b9f0",
     redirect_uri: "http://brianjcarroll.github.io/voice-memo-demo/callback.html",
   });
+
+  // initiate auth popup
+  SC.connect(function() {
+    SC.get('/me', function(me) { 
+      alert('Hello, ' + me.username); 
+    });
+  });
 </script>
 </body>
 </html>
