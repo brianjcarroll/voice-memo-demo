@@ -21,11 +21,6 @@ Hey
 
     // initiate auth popup
     SC.connect(function() {
-      var record = $('#record'),
-          stop = $('#stop'),
-          upload = $('#upload');
-
-
       SC.get('/me', function(me) { 
         console.log(me);
       });
@@ -38,6 +33,10 @@ Hey
 
 
     });  
+
+    var record = $('#record'),
+        stop = $('#stop'),
+        upload = $('#upload');
 
     record.on('click', function(e){
       SC.record({
