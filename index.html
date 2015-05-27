@@ -36,32 +36,43 @@ Hey
         SC.oEmbed(tracks[0].uri, document.getElementById('embedMe'));
       });
 
-      record.on('click', function(e){
-        SC.record({
-          start: function(){
 
-          },
-          progress: function(ms, avgPeak){
-
-          }
-        });
-
-      upload.on('click', function(e){
-        SC.recordUpload({
-          track: {title: "Lol it worked"},
-          success: function(res, err){
-            console.log(res, err);
-          }
-        });
-      });
     });  
 
+    record.on('click', function(e){
+      SC.record({
+        start: function(){
+
+        },
+        progress: function(ms, avgPeak){
+
+        }
+      });
+    });
+
+    stop.on('click', function(e){
+      SC.recordStop();
+    });
+
+    upload.on('click', function(e){
+      SC.connect({
+        connected: function(){
+          SC.recordUpload({
+            track: {title: "Lol it worked"},
+            success: function(res, err){
+              console.log(res, err);
+            }
+          }, function(track){
+            console.log('THE TRACK!', track);
+          });          
+        }
+      });
 
     });
 
 
 
-    });
+  });
 </script>
 </body>
 </html>
